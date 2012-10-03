@@ -30,9 +30,9 @@ function addEvent(obj, type, fn) {
  */
 function removeEvent(obj, type, fn) {
     try {
-        if ( obj.detachEvent ) {
+        if (obj.detachEvent) {
             obj.detachEvent('on'+type, obj[type+fn]);
-            obj[type+fn] = null;
+            obj[type + fn] = null;
         } else {
             obj.removeEventListener(type, fn, false);
         }
@@ -57,9 +57,7 @@ function removeEvent(obj, type, fn) {
  *        a number without unit.
  */
 function applyCSS(element, styles) {
-    var val, suffixes;
-
-    suffixes = {
+    var suffixes = {
         'left': 'px',
         'top': 'px',
         'right': 'px',
@@ -73,7 +71,7 @@ function applyCSS(element, styles) {
     for (var prop in styles) {
         if (styles.hasOwnProperty(prop))
         {
-            val = styles[prop] + (suffixes[prop] || '');
+            var val = styles[prop] + (suffixes[prop] || '');
             if (element.style[prop] !== undefined) {
             	element.style[prop] = val;
             } else if (element[prop] !== undefined) {
