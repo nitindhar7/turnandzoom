@@ -1,0 +1,28 @@
+<html>
+<head>
+    <script type="text/javascript" src="../src/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../src/js/turnandzoom-util.js"></script>
+    <script type="text/javascript" src="../src/js/turnandzoom-slider.js"></script>
+    <style type="text/css">
+        #content {
+            margin: auto;
+            margin-top: 20px;
+            width: 400px;
+            height: 50px;
+            background: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+    <script type="text/javascript">
+        turnandzoom.create('content', {
+              boundingLength: 776,
+              innerLength: 8606,
+              thickness: 60,
+              percentageSnap: 6.25,
+              vertical: false
+          });
+    </script>
+</body>
+</html>
