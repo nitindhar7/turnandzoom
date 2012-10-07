@@ -15,7 +15,19 @@
 })(jQuery);
 
 function validateOptions(options) {
-	// TODO: do something useful
+	if(options) {
+		if(options.slider) {
+			if(options.slider.handleHeight) {
+				delete options.slider.handleHeight;
+			}
+			if(options.slider.handleWidth) {
+				delete options.slider.handleWidth;
+			}
+			if(options.slider.width) {
+				delete options.slider.width;
+			}
+		}
+	}
 	return options;
 }
 
