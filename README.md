@@ -12,6 +12,7 @@ Download and include turnandzoom-X.X.X.js to your webpage.
 ### Built Using
 
 - jQuery 1.7.2
+- jQuery UI 1.8.22
 
 ### Bug Reports
 

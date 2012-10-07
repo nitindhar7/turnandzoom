@@ -1,29 +1,23 @@
 <html>
 <head>
+    <link rel="stylesheet" href="../src/css/turnandzoom.css" />
     <script type="text/javascript" src="../src/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="../src/js/turnandzoom-util.js"></script>
-    <script type="text/javascript" src="../src/js/turnandzoom-grid.js"></script>
-    <script type="text/javascript" src="../src/js/turnandzoom-slider.js"></script>
-    <style type="text/css">
-        #content {
-            margin: auto;
-            margin-top: 20px;
-            width: 400px;
-            height: 50px;
-            background: gray;
-        }
-    </style>
+    <script type="text/javascript" src="../src/js/jquery-ui-1.8.22.min.js"></script>
+    <script type="text/javascript" src="../src/js/turnandzoom.js"></script>
 </head>
 <body>
-    <div id="content"></div>
+    <div id="widget">
+        <img src="../data/car1.jpeg" />
+        <img src="../data/car2.jpeg" />
+        <img src="../data/car3.jpeg" />
+        <img src="../data/car4.jpeg" />
+        <img src="../data/car5.jpeg" />
+        <img src="../data/car6.jpeg" />
+        <img src="../data/car7.jpeg" />
+        <img src="../data/car8.jpeg" />
+    </div>
     <script type="text/javascript">
-        turnandzoom.create('content', {
-              boundingLength: 776,
-              innerLength: 8606,
-              thickness: 60,
-              percentageSnap: 6.25,
-              vertical: false
-          });
+        $("#widget").turnandzoom();
     </script>
 </body>
 </html>
