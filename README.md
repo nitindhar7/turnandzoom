@@ -16,38 +16,38 @@ Download and include turnandzoom-X.X.X.js to your webpage.
 In you markup:
 
 ```html
-    <script type="text/javascript" src="jquery-1.7.2.js"></script>
-    <script type="text/javascript" src="jquery-ui-1.8.22.js"></script>
-    <script type="text/javascript" src="turnandzoom.js"></script>
+<script type="text/javascript" src="jquery-1.7.2.js"></script>
+<script type="text/javascript" src="jquery-ui-1.8.22.js"></script>
+<script type="text/javascript" src="turnandzoom.js"></script>
 
-    ...
+...
 
-    <div id="widget">
-        <img src="a.jpg" />
-        <img src="b.jpg" />
-        <img src="c.jpg" />
-    </div>
+<div id="widget">
+    <img src="a.jpg" />
+    <img src="b.jpg" />
+    <img src="c.jpg" />
+</div>
 ```
 
 In your javascript:
 
 ```javascript
-    $("#widget").turnandzoom();
+$("#widget").turnandzoom();
 ```
 
 A few variations:
 
 ```javascript
-    // A different sized widget
-    $("#widget").turnandzoom({
-        'width': 300,
-        'height': 300
-    });
+// A different sized widget
+$("#widget").turnandzoom({
+    'width': 300,
+    'height': 300
+});
 
-    // Add color to the slider
-    $("#widget").turnandzoom({
-        'sliderBackground': 'blue'
-    });
+// Add color to the slider
+$("#widget").turnandzoom({
+    'sliderBackground': 'blue'
+});
 ```
 
 ### Built using
