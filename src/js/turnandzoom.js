@@ -1,67 +1,60 @@
 (function($) {
     $.fn.turnandzoom = function(options) {
-    	var settings = $.extend({
-    		'width': 400,
-    		'height': 450,
-    		'border': {
-    			'show': true,
-    			'color': '#EEE',
-    			'width': 1
-    		},
-    		'slider': {
-    			'background': '#CCC',
-        		'width': 350,
-        		'height': 50,
-        		'handleBackground': '#EEE',
-        		'handleWidth': 50
-    		}
-    	}, options);
+    	var settings = createSettings(options);
 
-    	var slider = createSlider(settings);
-
-    	this.css({
-    		'width': settings.border.show ? settings.width - (2*settings.border.width) : settings.width,
-    		'height': settings.border.show ? settings.height - (2*settings.border.width) : settings.height//,
-    		//'border'
-    	})
-
-    	this.append(slider);
-
-    	var images = this.find('img');
-    	images.each(function(i) {
-    		if (settings.border.show) {
-    			$(this).css({
-    				'width': '-=' + (2*settings.border.width),
-    				'height': '-=' + (2*settings.border.width)
-    			})
-    		}
-
-    		if(i != 0) {
-    			$(this).hide();
-    		}
-    	});
-
-    	$("#" + this[0].id + " .turnandzoom-slider").slider({
-    		min: 0,
-			max: images.length-1,
-			step: 1,
-			slide: function(event, ui) {
-				images.each(function(i) {
-		    		$(this).hide();
-		    	});
-				images[ui.value].style.display = 'block';
-			}
-    	});
+    	applyWidgetStyle(this, settings);
 
     	$("#" + this[0].id + " .turnandzoom-slider .ui-slider-handle").css({
     		'position': 'absolute',
-    		'margin-left': -25,
+    		'margin-left': '-=' + (settings.slider.handleWidth/2),
     		'width': settings.slider.handleWidth,
-    		'height': settings.sliderHeight,
+    		'height': settings.slider.height,
     		'background': settings.slider.handleBackground
     	});
     };
 })(jQuery);
+
+function validateOptions(options) {
+	// TODO: do something useful
+	return options;
+}
+
+function createDefaultSettings() {
+	return {
+		'width': 400,
+		'height': 400,
+		'slider': {
+			'background': '#CCC',
+    		'height': 50,
+    		'handleBackground': '#EEE'
+		}
+	};
+}
+
+function createSettings(options) {
+	// Make sure that passed in options make sense
+	var options = validateOptions(options);
+	
+	// Fetch default settings
+	var defaultSettings = createDefaultSettings();
+	
+	// Merge defaults recursively with options
+	var settings = $.extend(true, defaultSettings, options);
+
+	// Adjust widget height based on slider height
+	settings.height += settings.slider.height;
+	
+	// Adjust slider handle height based on slider height
+	settings.slider.handleHeight = settings.slider.height;
+
+	// Adjust slider handle width based on slider handle height
+	settings.slider.handleWidth = settings.slider.handleHeight;
+
+	// Set slider width to widget width
+	settings.slider.width = settings.width - settings.slider.handleWidth;
+
+	return settings;
+}
 
 function createSlider(settings) {
 	var slider = document.createElement('div');
@@ -69,7 +62,47 @@ function createSlider(settings) {
 	slider.style.position = 'relative';
 	slider.style.margin = 'auto';
 	slider.style.background = settings.slider.background;
-	slider.style.width = settings.sliderWidth;
-	slider.style.height = settings.sliderHeight;
+	slider.style.width = settings.slider.width;
+	slider.style.height = settings.slider.height;
 	return slider;
+}
+
+function applyWidgetStyle(widget, settings) {
+	// Generate HTML for slider with some basic properties
+	var slider = createSlider(settings);
+
+	// Apply styles to widget
+	widget.css({
+		'width': settings.width,
+		'height': settings.height
+	});
+	
+
+	// Auto-generate slider in widget
+	widget.append(slider);
+
+	// Apply styles to widget images
+	var images = widget.find('img');
+	images.each(function(i) {
+		$(this).css({
+			'width': settings.width,
+			'height': settings.height
+		})
+		if(i != 0) {
+			$(this).hide();
+		}
+	});
+
+	// Create slider functionality
+	$("#" + widget[0].id + " .turnandzoom-slider").slider({
+		min: 0,
+		max: images.length-1,
+		step: 1,
+		slide: function(event, ui) {
+			images.each(function(i) {
+	    		$(this).hide();
+	    	});
+			images[ui.value].style.display = 'block';
+		}
+	});
 }

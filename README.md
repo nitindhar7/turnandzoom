@@ -14,12 +14,12 @@ Download and include turnandzoom-X.X.X.js to your webpage.
 
 ### Using `turnandzoom`
 
-In you markup:
+In your markup:
 
 ```html
 <script type="text/javascript" src="jquery-1.7.2.js"></script>
 <script type="text/javascript" src="jquery-ui-1.8.22.js"></script>
-<script type="text/javascript" src="turnandzoom.js"></script>
+<script type="text/javascript" src="turnandzoom-X.X.X.js"></script>
 
 ...
 
@@ -36,7 +36,17 @@ In your javascript:
 $("#widget").turnandzoom();
 ```
 
-A few variations:
+Options:
+
+- `height`: in 'px'
+- `width`: in 'px'
+- `slider`: Json object with:
+
+  - `background`: Slider rail
+  - `handleBackground`: Slider handle background
+  - `height`: Slider rail height in 'px'
+
+And a few variations:
 
 ```javascript
 // A different sized widget
@@ -60,10 +70,18 @@ $("#widget").turnandzoom({
 });
 ```
 
-### Built using
+### Upcoming Features
 
-- jQuery (1.7.2)
-- jQuery UI (1.8.22)
+- Border settings for widget and slider
+- Zooming capability
+- Jump to certain values
+- Progress/Regress arrows
+
+### Compatability
+
+- jQuery (1.7.2+)
+- jQuery UI (1.8.22+)
+- Chrome Version 22.0.1229.79
 
 ### Contribute
 
