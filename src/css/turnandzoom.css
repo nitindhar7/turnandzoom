@@ -6,14 +6,3 @@
 .turnandzoom-hidden {
     display: none;
 }
-
-.turnandzoom-slider {
-}
-
-.turnandzoom-slider .ui-slider-handle {
-    position: absolute;
-    margin-left: -25px;
-    width: 50px;
-    height: 50px;
-    background: #EEE;
-}

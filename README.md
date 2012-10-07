@@ -1,5 +1,5 @@
-turnandzoom
-===========
+turnandzoom !(data/turnandzoom.png)
+===================================
 
 A Javascript widget that allows you to rotate an image 360 degrees and zoom on any angle
 
@@ -7,7 +7,9 @@ A Javascript widget that allows you to rotate an image 360 degrees and zoom on a
 
 Download and include turnandzoom-X.X.X.js to your webpage.
 
-    <script type="text/javascript" src="turnandzoom-X.X.X.js"></script>
+```html
+<script type="text/javascript" src="turnandzoom-X.X.X.js"></script>
+```
 
 `turnandzoom` runs on jQuery/jQueryUI and requires them to be included in your webpage.
 
@@ -46,7 +48,16 @@ $("#widget").turnandzoom({
 
 // Add color to the slider
 $("#widget").turnandzoom({
-    'sliderBackground': 'blue'
+    'slider': {
+        'background': 'blue'
+    }
+});
+
+// Change the height of the slider
+$("#widget").turnandzoom({
+    'slider': {
+        'height': 20
+    }
 });
 ```
 
