@@ -76,6 +76,7 @@ $("#widget").turnandzoom({
 - Zooming capability
 - Jump to certain values
 - Progress/Regress arrows
+- get images for cp-7960g without the watermark
 
 ### Compatability
 

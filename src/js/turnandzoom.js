@@ -1,8 +1,11 @@
 (function($) {
     $.fn.turnandzoom = function(options) {
+        var images = this.find('img');
     	var settings = createSettings(options);
-
-    	applyWidgetStyle(this, settings);
+    	applyWidgetStyle(this, images, settings);
+        generateWidgetComponents(this, images, settings);
+        enableSlider(this, images);
+        enableZoom(this, images, settings);
 
     	$("#" + this[0].id + " .turnandzoom-slider .ui-slider-handle").css({
     		'position': 'absolute',
@@ -33,6 +36,8 @@ function validateOptions(options) {
 
 function createDefaultSettings() {
 	return {
+	    'position': 'relative',
+	    'overflow': 'hidden',
 		'width': 400,
 		'height': 400,
 		'slider': {
@@ -79,42 +84,102 @@ function createSlider(settings) {
 	return slider;
 }
 
-function applyWidgetStyle(widget, settings) {
-	// Generate HTML for slider with some basic properties
-	var slider = createSlider(settings);
+function createViewport(settings) {
+    var viewport = document.createElement('div');
+    viewport.className = "turnandzoom-viewport";
+    viewport.style.position = "relative";
+    viewport.style.margin = "auto";
+    viewport.style.width = settings.width;
+    viewport.style.height = settings.height - settings.slider.height;
+    return viewport;
+}
 
+function applyWidgetStyle(widget, images, settings) {
 	// Apply styles to widget
 	widget.css({
+	    'position': settings.position,
+	    'overflow': settings.overflow,
 		'width': settings.width,
 		'height': settings.height
 	});
-	
-
-	// Auto-generate slider in widget
-	widget.append(slider);
 
 	// Apply styles to widget images
-	var images = widget.find('img');
 	images.each(function(i) {
 		$(this).css({
 			'width': settings.width,
-			'height': settings.height
-		})
+			'height': settings.height - settings.slider.height
+		});
 		if(i != 0) {
 			$(this).hide();
 		}
 	});
+}
 
-	// Create slider functionality
-	$("#" + widget[0].id + " .turnandzoom-slider").slider({
-		min: 0,
-		max: images.length-1,
-		step: 1,
-		slide: function(event, ui) {
-			images.each(function(i) {
-	    		$(this).hide();
-	    	});
-			images[ui.value].style.display = 'block';
-		}
-	});
+function generateWidgetComponents(widget, images, settings) {
+    // Generate HTML for slider with some basic properties
+    var slider = createSlider(settings);
+
+    // Generate HTML for viewport with some basic properties
+    var viewport = createViewport(settings);
+
+    // Auto-generate viewport in widget and move images into it
+    widget.append(viewport);
+    images.each(function(i) {
+        $(viewport).append(images[i]);
+    });
+
+    // Auto-generate slider in widget
+    widget.append(slider);
+}
+
+function enableSlider(widget, images) {
+    // Create slider functionality
+    $("#" + widget[0].id + " .turnandzoom-slider").slider({
+        min: 0,
+        max: images.length-1,
+        step: 1,
+        slide: function(event, ui) {
+            images.each(function(i) {
+                $(this).hide();
+            });
+            images[ui.value].style.display = 'block';
+        }
+    });
+}
+
+function enableZoom(widget, images, settings) {
+    var viewport = widget.find('.turnandzoom-viewport');
+    var activeImage = viewport.find('img:visible');
+    var halfWidth = activeImage.width()/2;
+    var halfHeight = activeImage.height()/2;
+
+    // Apply zooming
+    $(viewport).hover(
+        function() {
+            $(activeImage).css({
+                'width': settings.width*2,
+                'height': settings.height*2
+            });
+            $(this).mousemove(function(e) {
+                var left = e.offsetX;
+                var top = e.offsetY;
+                var deltaX = halfWidth - left;
+                var deltaY = halfHeight - top;
+                $(activeImage).css({
+                    'margin-left': deltaX * 2,
+                    'margin-top': deltaY * 2
+                });
+                e.preventDefault();
+            });
+        }, 
+        function() {
+            $(this).unbind('mousemove');
+            $(activeImage).css({
+                'margin-left': 0,
+                'margin-top': 0,
+                'width': settings.width,
+                'height': settings.height - settings.slider.height
+            });
+        }
+    );
 }

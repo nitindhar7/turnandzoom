@@ -1,3 +1,7 @@
+body {
+    background: #DDD;
+}
+
 #widget {
     margin: auto;
     margin-top: 20px;
